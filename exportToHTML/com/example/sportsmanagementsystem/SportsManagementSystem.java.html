@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>SportsManagementSystem.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+SportsManagementSystem.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">sportsmanagementsystem</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Comparator</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Random</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">SportsManagementSystem </span><span class="s2">{</span>
+    <span class="s0">protected </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Player</span><span class="s2">&gt; </span><span class="s1">players</span><span class="s2">;</span>
+    <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Match</span><span class="s2">&gt; </span><span class="s1">matches</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">SportsManagementSystem</span><span class="s2">() {</span>
+        <span class="s1">players </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">matches </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">createPlayer</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+        <span class="s1">Player player </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Player</span><span class="s2">(</span><span class="s1">name</span><span class="s2">);</span>
+        <span class="s1">players</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">player</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">removePlayer</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+        <span class="s1">players</span><span class="s2">.</span><span class="s1">removeIf</span><span class="s2">(</span><span class="s1">player -&gt; player</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">name</span><span class="s2">));</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">showPlayers</span><span class="s2">() {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Player player </span><span class="s2">: </span><span class="s1">players</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">player</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">rankPlayers</span><span class="s2">() {</span>
+        <span class="s1">players</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingDouble</span><span class="s2">(</span><span class="s1">Player::getScore</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
+        <span class="s1">showPlayers</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">scorePlayer</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s0">double </span><span class="s1">score</span><span class="s2">) {</span>
+        <span class="s1">Player player </span><span class="s2">= </span><span class="s1">players</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">p -&gt; p</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">name</span><span class="s2">))</span>
+                <span class="s2">.</span><span class="s1">findFirst</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">orElseThrow</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s0">new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s3">&quot;Jugador no encontrado: &quot; </span><span class="s2">+ </span><span class="s1">name</span><span class="s2">));</span>
+        <span class="s1">player</span><span class="s2">.</span><span class="s1">setScore</span><span class="s2">(</span><span class="s1">score</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">matchmake</span><span class="s2">(</span><span class="s1">String name1</span><span class="s2">, </span><span class="s1">String name2</span><span class="s2">) {</span>
+        <span class="s1">Player player1 </span><span class="s2">= </span><span class="s1">players</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">p -&gt; p</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">name1</span><span class="s2">))</span>
+                <span class="s2">.</span><span class="s1">findFirst</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">orElseThrow</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s0">new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s3">&quot;Jugador no encontrado: &quot; </span><span class="s2">+ </span><span class="s1">name1</span><span class="s2">));</span>
+        <span class="s1">Player player2 </span><span class="s2">= </span><span class="s1">players</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">p -&gt; p</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">name2</span><span class="s2">))</span>
+                <span class="s2">.</span><span class="s1">findFirst</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">orElseThrow</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s0">new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s3">&quot;Jugador no encontrado: &quot; </span><span class="s2">+ </span><span class="s1">name2</span><span class="s2">));</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">player1 </span><span class="s2">== </span><span class="s1">player2</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;No se puede hacer coincidir a un jugador consigo mismo.&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">matches</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">().</span><span class="s1">anyMatch</span><span class="s2">(</span><span class="s1">match -&gt; </span><span class="s2">(</span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer1</span><span class="s2">() == </span><span class="s1">player1 </span><span class="s2">&amp;&amp; </span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer2</span><span class="s2">() == </span><span class="s1">player2</span><span class="s2">) ||</span>
+                <span class="s2">(</span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer1</span><span class="s2">() == </span><span class="s1">player2 </span><span class="s2">&amp;&amp; </span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer2</span><span class="s2">() == </span><span class="s1">player1</span><span class="s2">))) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Estos jugadores ya están emparejados.&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">Match match </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Match</span><span class="s2">(</span><span class="s1">player1</span><span class="s2">, </span><span class="s1">player2</span><span class="s2">);</span>
+        <span class="s1">matches</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">match</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Partido creado: &quot; </span><span class="s2">+ </span><span class="s1">match</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">clearMatchmake</span><span class="s2">() {</span>
+        <span class="s1">matches</span><span class="s2">.</span><span class="s1">clear</span><span class="s2">();</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Todas las coincidencias se han limpiado.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">randomMatchmake</span><span class="s2">() {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">players</span><span class="s2">.</span><span class="s1">size</span><span class="s2">() % </span><span class="s4">2 </span><span class="s2">!= </span><span class="s4">0</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;No se puede realizar una coincidencia aleatoria con un número impar de jugadores.&quot;</span><span class="s2">);</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Player</span><span class="s2">&gt; </span><span class="s1">shuffledPlayers </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;(</span><span class="s1">players</span><span class="s2">);</span>
+        <span class="s1">Random random </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Random</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">size</span><span class="s2">() - </span><span class="s4">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&gt; </span><span class="s4">0</span><span class="s2">; </span><span class="s1">i</span><span class="s2">--) {</span>
+            <span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s1">random</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s1">i </span><span class="s2">+ </span><span class="s4">1</span><span class="s2">);</span>
+            <span class="s1">Player temp </span><span class="s2">= </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+            <span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">set</span><span class="s2">(</span><span class="s1">i</span><span class="s2">, </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">j</span><span class="s2">));</span>
+            <span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">set</span><span class="s2">(</span><span class="s1">j</span><span class="s2">, </span><span class="s1">temp</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">size</span><span class="s2">(); </span><span class="s1">i </span><span class="s2">+= </span><span class="s4">2</span><span class="s2">) {</span>
+            <span class="s1">Player player1 </span><span class="s2">= </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+            <span class="s1">Player player2 </span><span class="s2">= </span><span class="s1">shuffledPlayers</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i </span><span class="s2">+ </span><span class="s4">1</span><span class="s2">);</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">matches</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">().</span><span class="s1">anyMatch</span><span class="s2">(</span><span class="s1">match -&gt; </span><span class="s2">(</span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer1</span><span class="s2">() == </span><span class="s1">player1 </span><span class="s2">&amp;&amp; </span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer2</span><span class="s2">() == </span><span class="s1">player2</span><span class="s2">) ||</span>
+                    <span class="s2">(</span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer1</span><span class="s2">() == </span><span class="s1">player2 </span><span class="s2">&amp;&amp; </span><span class="s1">match</span><span class="s2">.</span><span class="s1">getPlayer2</span><span class="s2">() == </span><span class="s1">player1</span><span class="s2">))) {</span>
+                <span class="s0">continue</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s1">Match match </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Match</span><span class="s2">(</span><span class="s1">player1</span><span class="s2">, </span><span class="s1">player2</span><span class="s2">);</span>
+            <span class="s1">matches</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">match</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Coincidencia aleatoria completada.&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
